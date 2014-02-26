@@ -106,7 +106,7 @@ public class Student {
         _geslacht = (geslacht.toLowerCase().equals("m") || geslacht.toLowerCase().equals("v") ? geslacht.toLowerCase() : "o");
     }
     
-    /** Retourneert de vakken die een student bijwoonde in een bepaald jaar.
+    /** Retourneert de vakken die een student haalde in een bepaald jaar.
      * jaar = 0 retourneert alle vakken.
      *
      * @param jaar het jaar.

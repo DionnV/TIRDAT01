@@ -2,7 +2,6 @@ package opdracht3;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 /**
  *
@@ -119,12 +118,10 @@ public class Administratie {
     {
         int som = 0;
         int aantal = 0;
-        System.out.println("Gemiddelde berekenen...");
         for(Vak v : student.getVakken())
         {
             aantal++;
             som += v.getCijfer();
-            v.printVak();
         }       
         System.out.println("Gemiddelde cijfer van " + student.getStudentnummer() + " is " + (float)som/(float)aantal);
     }
