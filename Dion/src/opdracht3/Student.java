@@ -117,7 +117,7 @@ public class Student {
         LinkedList<Vak> list = new LinkedList<Vak>();
         Object[] vakken = _vakken.values().toArray();       
         for (Object vak : vakken) {
-            if (((Vak) vak).getCijfer() > 0) {
+            if (((Vak) vak).getCijfer() > 6) {
                 if ((((Vak) vak).getJaar() == jaar) || jaar == 0) {
                     list.add((Vak) vak);
                 }
@@ -133,16 +133,26 @@ public class Student {
      */
     public LinkedList<Vak> getVakken()
     {
-        return getVakken(0);
+        LinkedList<Vak> list = new LinkedList<Vak>();
+        Object[] vakken = _vakken.values().toArray();    
+        
+        for (Object vak : vakken) 
+        {
+            list.add((Vak) vak);
+        }
+        
+        return list;
     }
     
     /** Voegt een vak toe bij een student.
      *
-     * @param vak het vak.
+     * @param vakken de vakken
      */
-    public void addVak(Vak vak)
+    public void addVak(Vak... vakken)
     {
+        for(Vak vak : vakken){
         _vakken.put(vak.getModulecode(), vak);
+        }
     }
     
     /** Retourneert het gemiddelde van een student.

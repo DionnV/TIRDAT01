@@ -19,10 +19,15 @@ public class Queue {
     _end = null;
     }
     
-    public Queue(Student... args){
-        for(Student s : args){
+    public Queue(Student... args)
+    {
+        _size = 0;
+        _start = null;
+        _end = null;
+        for(Student s : args)
+        {
             push(s);
-        }
+        }        
     }
     
     /**

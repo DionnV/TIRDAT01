@@ -10,20 +10,27 @@ package opdracht2;
  */
 public class SortedList {
 
-    private Student start;
-    private Student end;
-    private int size;
+    private Student _start;
+    private Student _end;
+    private int _size;
 
     /**
      * Lege constructor.
      */
-    public SortedList(){}
+    public SortedList(){
+        _start = null;
+        _end = null;
+        _size = 0;
+    }
     
     /**
      * Constructor waar studenten aan mee te geven zijn, die direct gepusht worden.
      * @param args De toe te pushen studenten.
      */
     public SortedList(Student... args){
+        _start = null;
+        _end = null;
+        _size = 0;
         for(Student s : args){
             push(s);
         }
@@ -35,20 +42,19 @@ public class SortedList {
      * @param s De toe te voegen student
      */
     public void push(Student s) {
-
-        if(size==0){
-            start = s;
-            end= s;
-        } else if(s.getStudentNummer()<start.getStudentNummer()){
-            start.setPrev(s);
-            s.setNext(start);
-            start = s;
-        } else if(s.getStudentNummer()>end.getStudentNummer()){
-            s.setPrev(end);
-            end.setNext(s);
-            end = s;
+        if(_size==0){
+            _start = s;
+            _end= s;
+        } else if(s.getStudentNummer()<_start.getStudentNummer()){
+            _start.setPrev(s);
+            s.setNext(_start);
+            _start = s;
+        } else if(s.getStudentNummer()>_end.getStudentNummer()){
+            s.setPrev(_end);
+            _end.setNext(s);
+            _end = s;
         } else {
-            Student tmp = start;
+            Student tmp = _start;
             for(int i = tmp.getStudentNummer();s.getStudentNummer()<i;i=tmp.getStudentNummer()){
                 tmp = tmp.getNext();
             }
@@ -58,7 +64,7 @@ public class SortedList {
             s.setNext(tmp);
             
         }
-        size++;
+        _size++;
     }
 
     /**
@@ -66,10 +72,10 @@ public class SortedList {
      * @return De verwijderde student.
      */
     public Student head() {
-        Student tmp = start;
-        start.getNext().setPrev(null);
-        start = start.getNext();
-        size--;
+        Student tmp = _start;
+        tmp.getNext().setPrev(null);
+        _start = _start.getNext();
+        _size--;
         return tmp;
     }
     
@@ -78,10 +84,10 @@ public class SortedList {
      * @return De verwijderde student.
      */
     public Student tail(){
-        Student tmp = end;
-        end.getPrev().setNext(null);
-        end = end.getPrev();
-        size--;
+        Student tmp = _end;
+        tmp.getPrev().setNext(null);
+        _end = _end.getPrev();
+        _size--;
         return tmp;
     }
     
@@ -92,7 +98,7 @@ public class SortedList {
      */
     public Student pop(Student s){
         Student tmp;
-        for(tmp = start; tmp!=s&&tmp!=null;tmp = tmp.getNext()){}
+        for(tmp = _start; tmp!=s&&tmp!=null;tmp = tmp.getNext()){}
         if(tmp==null){
             System.out.println("Student niet gevonden!");
             return null;
@@ -101,7 +107,7 @@ public class SortedList {
             tmp.getNext().setPrev(tmp.getPrev());
             tmp.setPrev(null);
             tmp.setNext(null);
-            size--;
+            _size--;
             return tmp;
         }
     }
@@ -112,39 +118,38 @@ public class SortedList {
      * @return De verwijderde student.
      */
     public Student pop(int index) {
-        if (size == 0) {
+        if (_size == 0) {
             System.out.println("Lijst leeg!");
             return null;
-        } else if (index == (size - 1) && size == 1) {
-            Student tmp = start;
-            start = null;
-            end = null;
-            size--;
+        } else if (index == 0 && _size == 1) {
+            Student tmp = _start;
+            _start = null;
+            _end = null;
+            _size--;
             return tmp;
         } else if (index == 0) {
-            Student tmp = start;
-            start.getNext().setPrev(null);
-            start = start.getNext();
-            size--;
+            Student tmp = _start;
+            tmp.getNext().setPrev(null);
+            _start = _start.getNext();
+            _size--;
             return tmp;
-        } else if (index == (size - 1)) {
-            Student tmp = end;
-            end.getPrev().setNext(null);
-            end = end.getPrev();
-            size--;
+        } else if (index == (_size - 1)) {
+            Student tmp = _end;
+            _end.getPrev().setNext(null);
+            _end = _end.getPrev();
+            _size--;
             return tmp;
-        } else if(index>(size-1)){
+        } else if(index>(_size-1)){
             System.out.println("De opgegeven index is leeg!");
             return null;
         } else {
-            Student tmp = start;
+            Student tmp = _start;
             for (int i = 0; i < index; i++) {
                 tmp = tmp.getNext();
             }
-            //System.out.println(tmp.getPrev());
             tmp.getPrev().setNext(tmp.getNext());
             tmp.getNext().setPrev(tmp.getPrev());
-            size--;
+            _size--;
             return tmp;
         }
     }
@@ -154,7 +159,7 @@ public class SortedList {
      * @return Int met de grootte van de SortedList.
      */
     public int size() {
-        return size;
+        return _size;
     }
 
     /**
@@ -163,7 +168,7 @@ public class SortedList {
      * @return True als student al bestaat, anders false.
      */
     public boolean peek(Student s) {
-        for (Student tmp = start; tmp != null; tmp = tmp.getNext()) {
+        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
             if (s.getStudentNummer() == tmp.getStudentNummer()) {
                 return true;
             }
@@ -175,7 +180,7 @@ public class SortedList {
      * Print gehele SortedList.
      */
     public void printList() {
-        for (Student tmp = start; tmp != null; tmp = tmp.getNext()) {
+        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
             tmp.printStudent();
         }
     }
@@ -184,8 +189,8 @@ public class SortedList {
      * Print alle mannen in de SortedList.
      */
     public void printMen() {
-        for (Student tmp = start; tmp != null; tmp = tmp.getNext()) {
-            if (tmp.getGeslacht() == "m") {
+        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            if (tmp.getGeslacht().equals("m")) {
                 tmp.printStudent();
             }
         }
@@ -195,8 +200,8 @@ public class SortedList {
      * print alle vrouwen in de SortedList.
      */
     public void printWomen() {
-        for (Student tmp = start; tmp != null; tmp = tmp.getNext()) {
-            if (tmp.getGeslacht() == "v") {
+        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            if (tmp.getGeslacht().equals("v")) {
                 tmp.printStudent();
             }
         }
@@ -206,13 +211,13 @@ public class SortedList {
      * @return geeft de student van vooraan uit de SortedList terug.
      */
     public Student getStart() {
-        return start;
+        return _start;
     }
 
     /**
      * @return de student achterin de SortedList.
      */
     public Student getEnd() {
-        return end;
+        return _end;
     }
 }

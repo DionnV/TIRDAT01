@@ -13,6 +13,14 @@ public class Stack {
      */
     private Student _start;
 
+    /** Lege constructor.
+     * 
+     */
+    public Stack()
+    {
+        _size = 0;
+        _start = null;
+    }
     /**
      * Voeg student toe bovenop stapel, indien student de eerste is, wordt deze als start opgeslagen.
      * @param s De toe te voegen student.

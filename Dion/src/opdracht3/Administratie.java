@@ -2,6 +2,7 @@ package opdracht3;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  *
@@ -23,12 +24,15 @@ public class Administratie {
     
     /** Voegt een student toe aan de administratie
      *
-     * @param s de Student
+     * @param students de studenten
      */
-    public void addStudent(Student s)
+    public void addStudent(Student... students)
     {
-        _studenten.put(s.getStudentnummer(), s);
-        _totaal++;
+        for(Student s : students)
+        {
+            _studenten.put(s.getStudentnummer(), s);
+            _totaal++;
+        }
     }
     
     /** Retourneert alle studenten.
@@ -94,6 +98,7 @@ public class Administratie {
         {
             for(Vak v : s.getVakken())
             {
+                if(v==null)break;
                 if(v.getModulecode().equals(vak.getModulecode()))
                 {
                    aantal++; 
@@ -101,6 +106,7 @@ public class Administratie {
                    break;
                 }
             }
+            
         }       
         System.out.println("Gemiddelde cijfer voor het vak " + vak.getModulecode() + " is " + (float)som/(float)aantal);
     }
@@ -113,10 +119,12 @@ public class Administratie {
     {
         int som = 0;
         int aantal = 0;
+        System.out.println("Gemiddelde berekenen...");
         for(Vak v : student.getVakken())
         {
             aantal++;
             som += v.getCijfer();
+            v.printVak();
         }       
         System.out.println("Gemiddelde cijfer van " + student.getStudentnummer() + " is " + (float)som/(float)aantal);
     }

@@ -24,11 +24,7 @@ public class Student {
         _studentNummer = studentNummer;
         _naam = naam;
         _leeftijd = leeftijd;
-        if (geslacht.equalsIgnoreCase("m") || geslacht.equalsIgnoreCase("v")) 
-        {
-            _geslacht = geslacht;
-        } 
-
+        _geslacht = (geslacht.toLowerCase().equals("m") || geslacht.toLowerCase().equals("v") ? geslacht.toLowerCase() : "o");
     }
 
     /**

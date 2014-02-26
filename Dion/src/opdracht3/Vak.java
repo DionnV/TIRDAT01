@@ -19,6 +19,18 @@ public class Vak {
         _jaar = 0;
     }
 
+    /** Contructor
+     * 
+     * @param modulecode de modulecode
+     * @param cijfer het cijfer
+     * @param jaar het jaar
+     */
+    public Vak(String modulecode, int cijfer, int jaar)
+    {
+        _modulecode = modulecode;
+        _cijfer = cijfer;
+        _jaar = jaar;
+    }
     /** Retourneert de modulecode.
      *
      * @return de modulecode.

@@ -31,15 +31,15 @@ public class List {
                 _end = s;
             } else {
                 Student tmp = _start;
-                _start.setPrev(s);
+                tmp.setPrev(s);
                 _start = s;
                 s.setNext(tmp);
             }
         } else if (index == _size || index > _size) {
             Student tmp = _end;
-            _end.setNext(s);
+            tmp.setNext(s);
             _end = s;
-            _end.setPrev(tmp);
+            s.setPrev(tmp);
         } else {
             Student tmp = _start;
             for (int i = 0; i < (index - 1); i++) {
@@ -70,13 +70,13 @@ public class List {
             return tmp;
         } else if (index == 0) {
             Student tmp = _start;
-            _start.getNext().setPrev(null);
+            tmp.getNext().setPrev(null);
             _start = _start.getNext();
             _size--;
             return tmp;
         } else if (index == (_size - 1)) {
             Student tmp = _end;
-            _end.getPrev().setNext(null);
+            tmp.getPrev().setNext(null);
             _end = _end.getPrev();
             _size--;
             return tmp;
@@ -131,7 +131,7 @@ public class List {
      */
     public void printMen() {
         for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            if (tmp.getGeslacht() == "m") {
+            if (tmp.getGeslacht().equals("m")) {
                 tmp.printStudent();
             }
         }
@@ -142,7 +142,7 @@ public class List {
      */
     public void printWomen() {
         for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            if (tmp.getGeslacht() == "v") {
+            if (tmp.getGeslacht().equals("v")){
                 tmp.printStudent();
             }
         }
