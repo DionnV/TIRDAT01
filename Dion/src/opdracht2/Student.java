@@ -15,8 +15,6 @@ public class Student {
     private String _naam;
     private int _leeftijd;
     private String _geslacht;
-    private Student _next;
-    private Student _prev;
     /**
      * Lege studentconstructor.
      */
@@ -113,32 +111,5 @@ public class Student {
                 + "\nLeeftijd     : " + _leeftijd
                 + "\nGeslacht     : " + _geslacht
                 + "\n";
-    }
-    /**
-     * @return the next
-     */
-    public Student getNext() {
-        return _next;
-    }
-
-    /**
-     * @param next the next to set
-     */
-    public void setNext(Student next) {
-        this._next = next;
-    }
-
-    /**
-     * @return the prev
-     */
-    public Student getPrev() {
-        return _prev;
-    }
-
-    /**
-     * @param prev the prev to set
-     */
-    public void setPrev(Student prev) {
-        this._prev = prev;
-    }
+    }   
 }

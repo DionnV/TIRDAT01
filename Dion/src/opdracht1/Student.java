@@ -75,6 +75,14 @@ public class Student {
         return _geslacht;
     }
 
+    @Override
+    public String toString(){ 
+        return "Studentnummer: " + _studentNummer +
+                "\nNaam         : " + _naam +
+                "\nLeeftijd     : " + _leeftijd +
+                "\nGeslacht     : " + _geslacht;
+         
+    }
     /**
      * Print alle gegevens van de student.
      */

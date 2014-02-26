@@ -23,14 +23,15 @@ public class Stack {
     }
     /**
      * Voeg student toe bovenop stapel, indien student de eerste is, wordt deze als start opgeslagen.
-     * @param s De toe te voegen student.
+     * @param obj het object om toe te voegen.
      */
-    public void push(Node s) {
+    public void push(Object obj) {
+        Node n = new Node(obj);
         if (_start == null) {
-            _start = s;
+            _start = n;
         } else {
-            s.setNext(_start);
-            _start = s;
+            n.setNext(_start);
+            _start = n;
         }
         _size++;
     }
@@ -60,12 +61,12 @@ public class Stack {
 
     /**
      * Controleert of de meegegeven student al in de stack staat op basis van studentnummer.
-     * @param s De te controleren student.
+     * @param obj het object
      * @return True als student al bestaat, False als student nog niet gemaakt is.
      */
-    public boolean peek(Node s) {
+    public boolean peek(Object obj) {
         for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            if (s.getData().equals(tmp.getData())) {
+            if (obj.equals(tmp.getData())) {
                 return true;
             }
         }
@@ -78,7 +79,7 @@ public class Stack {
      */
     public void printStack() {
         for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            tmp.toString();
+            System.out.println(tmp.toString());
         }
     }
 

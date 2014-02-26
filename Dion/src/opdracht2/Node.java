@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 
-package opdracht1;
+package opdracht2;
+
+import opdracht1.*;
 
 /**
  *
