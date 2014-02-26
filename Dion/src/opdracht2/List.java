@@ -6,8 +6,8 @@ package opdracht2;
  */
 public class List {
 
-    private Student _start;
-    private Student _end;
+    private Node _start;
+    private Node _end;
     private int _size;
     
     /**
@@ -24,31 +24,32 @@ public class List {
      * @param s De toe te voegen student
      * @param index De index waar de student moet komen.
      */
-    public void push(Student s, int index) {
+    public void push(Object obj, int index) {
+        Node n = new Node(obj);
         if (index == 0) {
             if (_start == null) {
-                _start = s;
-                _end = s;
+                _start = n;
+                _end = n;
             } else {
-                Student tmp = _start;
-                tmp.setPrev(s);
-                _start = s;
-                s.setNext(tmp);
+                Node tmp = _start;
+                tmp.setPrevious(n);
+                _start = n;
+                n.setNext(tmp);
             }
         } else if (index == _size || index > _size) {
-            Student tmp = _end;
-            tmp.setNext(s);
-            _end = s;
-            s.setPrev(tmp);
+            Node tmp = _end;
+            tmp.setNext(n);
+            _end = n;
+            n.setPrevious(tmp);
         } else {
-            Student tmp = _start;
+            Node tmp = _start;
             for (int i = 0; i < (index - 1); i++) {
                 tmp = tmp.getNext();
             }
-            s.setNext(tmp.getNext());
-            tmp.getNext().setPrev(s);
-            tmp.setNext(s);
-            s.setPrev(tmp);          
+            n.setNext(tmp.getNext());
+            tmp.getNext().setPrevious(n);
+            tmp.setNext(n);
+            n.setPrevious(tmp);          
         }
         _size++;
     }
@@ -58,40 +59,40 @@ public class List {
      * @param index De index van te verwijderen student.
      * @return De verwijderde student.
      */
-    public Student pop(int index) {
+    public Object pop(int index) {
         if (_size == 0) {
             System.out.println("Lijst leeg!");
             return null;
         } else if (index == (_size - 1) && _size == 1) {
-            Student tmp = _start;
+            Node tmp = _start;
             _start = null;
             _end = null;
             _size--;
-            return tmp;
+            return tmp.getData();
         } else if (index == 0) {
-            Student tmp = _start;
-            tmp.getNext().setPrev(null);
+            Node tmp = _start;
+            tmp.getNext().setPrevious(null);
             _start = _start.getNext();
             _size--;
-            return tmp;
+            return tmp.getData();
         } else if (index == (_size - 1)) {
-            Student tmp = _end;
-            tmp.getPrev().setNext(null);
-            _end = _end.getPrev();
+            Node tmp = _end;
+            tmp.getPrevious().setNext(null);
+            _end = _end.getPrevious();
             _size--;
-            return tmp;
+            return tmp.getData();
         } else if(index>(_size-1)){
             System.out.println("Index "+index+"is leeg!");
             return null;
         } else {
-            Student tmp = _start;
+            Node tmp = _start;
             for (int i = 0; i < index; i++) {
                 tmp = tmp.getNext();
             }
-            tmp.getPrev().setNext(tmp.getNext());
-            tmp.getNext().setPrev(tmp.getPrev());
+            tmp.getPrevious().setNext(tmp.getNext());
+            tmp.getNext().setPrevious(tmp.getPrevious());
             _size--;
-            return tmp;
+            return tmp.getData();
         }
     }
 
@@ -108,9 +109,9 @@ public class List {
      * @param s De te controleren student.
      * @return True als student al bestaat, anders false.
      */
-    public boolean peek(Student s) {
-        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            if (s.getStudentNummer() == tmp.getStudentNummer()) {
+    public boolean peek(Object obj) {
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            if (obj.equals(tmp.getData())) {
                 return true;
             }
         }
@@ -121,8 +122,8 @@ public class List {
      * Print gehele queue.
      */
     public void printList() {
-        for (Student tmp = _start; tmp!=null;tmp=tmp.getNext()) {
-            tmp.printStudent();
+        for (Node tmp = _start; tmp!=null;tmp=tmp.getNext()) {
+            System.out.println(tmp.toString());
         }
     }
 
@@ -130,9 +131,9 @@ public class List {
      * Print alle mannen in de queue
      */
     public void printMen() {
-        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            if (tmp.getGeslacht().equals("m")) {
-                tmp.printStudent();
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            if (((Student)tmp.getData()).getGeslacht().toLowerCase().equals("m")) {
+                System.out.println(tmp.toString());
             }
         }
     }
@@ -141,9 +142,9 @@ public class List {
      * print alle vrouwen in de queue.
      */
     public void printWomen() {
-        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            if (tmp.getGeslacht().equals("v")){
-                tmp.printStudent();
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            if (((Student)tmp.getData()).getGeslacht().toLowerCase().equals("v")) {
+                System.out.println(tmp.toString());
             }
         }
     }
@@ -151,14 +152,14 @@ public class List {
     /**
      * @return geeft de student van vooraan uit de queue terug.
      */
-    public Student getStart() {
+    public Node getStart() {
         return _start;
     }
 
     /**
      * @return de student achterin de queue
      */
-    public Student getEnd() {
+    public Node getEnd() {
         return _end;
     }
 }

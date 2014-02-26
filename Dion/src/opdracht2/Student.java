@@ -86,7 +86,6 @@ public class Student {
 
     /**
      * @param geslacht the geslacht to set
-     * @throws genderException Indien geslacht geen M of V is, wordt genderException gegooid.
      */
     public void setGeslacht(String geslacht) {
         _geslacht = (geslacht.toLowerCase().equals("m") || geslacht.toLowerCase().equals("v") ? geslacht.toLowerCase() : "o");

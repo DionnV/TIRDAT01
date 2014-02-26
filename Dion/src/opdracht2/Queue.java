@@ -6,8 +6,8 @@ package opdracht2;
  */
 public class Queue {
     
-    private Student _start;
-    private Student _end;
+    private Node _start;
+    private Node _end;
     private int _size;
 
     /**
@@ -19,31 +19,34 @@ public class Queue {
     _end = null;
     }
     
-    public Queue(Student... args)
+    /** Constructor
+     * 
+     * @param args alle objecten voor in de queue.
+     */
+    public Queue(Object... args)
     {
         _size = 0;
         _start = null;
         _end = null;
-        for(Student s : args)
+        for(Object obj : args)
         {
-            push(s);
+            push(obj);
         }        
     }
     
     /**
      * Een student toevoegen aan de queue.
-     * @param s De toe te voegen student
+     * @param obj het object om toe te voegen.
      */
-    public void push(Student s){
+    public void push(Object obj){
+        Node n = new Node(obj);
         if(_size == 0){
-            _start = s;
-            _end = s;
-    //        size++;
+            _start = n;
+            _end = n;
         } else {
-            _end.setNext(s);
-            s.setPrev(_end);
-            _end = s;
-      //      size++;
+            _end.setNext(n);
+            n.setPrevious(_end);
+            _end = n;
         }
         _size++;
     }
@@ -59,23 +62,23 @@ public class Queue {
      * Verwijdert student vooraan in de queue.
      * @return De verwijderde student.
      */
-    public Student pop(){
-        Student temp = _start;
-        _start.getNext().setPrev(null);
+    public Object pop(){
+        Node tmp = _start;
+        _start.getNext().setPrevious(null);
         _start=_start.getNext();
-        temp.setNext(null);
+        tmp.setNext(null);
         _size--;
-        return temp;
+        return tmp.getData();
     }
     
     /**
      * Kijkt op basis van studentnummer of student al bestaat.
-     * @param s De te controleren student.
+     * @param obj het object om toe te voegen.
      * @return True als student al bestaat, anders false.
      */
-    public boolean peek(Student s){
-        for(Student tmp=_start; tmp != null; tmp = tmp.getNext()){
-            if(s.getStudentNummer() == tmp.getStudentNummer()){
+    public boolean peek(Object obj){
+        for(Node tmp=_start; tmp != null; tmp = tmp.getNext()){
+            if(obj.equals((tmp.getData()))){
                 return true;
             }
         }
@@ -86,26 +89,28 @@ public class Queue {
      * Print gehele queue.
      */
     public void printQueue(){
-        for(Student tmp = _start; tmp != null; tmp = tmp.getNext()){
-            tmp.printStudent();
+        for(Node tmp = _start; tmp != null; tmp = tmp.getNext()){
+            System.out.println(tmp.toString());
         }
     }
     /**
      * Print alle mannen in de queue
      */
     public void printMen(){
-        for(Student tmp = _start; tmp != null; tmp = tmp.getNext()){
-            if(tmp.getGeslacht()=="m")
-                tmp.printStudent();
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            if (((Student)tmp.getData()).getGeslacht().toLowerCase().equals("m")) {
+                System.out.println(tmp.toString());
+            }
         }
     }
     /**
      * print alle vrouwen in de queue.
      */
     public void printWomen(){
-        for(Student tmp = _start; tmp != null; tmp = tmp.getNext()){
-            if(tmp.getGeslacht()=="v")
-                tmp.printStudent();
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            if (((Student)tmp.getData()).getGeslacht().toLowerCase().equals("m")) {
+                System.out.println(tmp.toString());
+            }
         }
     }
                 
@@ -113,14 +118,14 @@ public class Queue {
     /**
      * @return geeft de student van vooraan uit de queue terug.
       */
-    public Student getStart() {
+    public Node getStart() {
         return _start;
     }
 
     /**
      * @return de student achterin de queue
      */
-    public Student getEnd() {
+    public Node getEnd() {
         return _end;
     }
 }

@@ -6,8 +6,6 @@
 
 package opdracht2;
 
-import opdracht1.*;
-
 /**
  *
  * @author Dion

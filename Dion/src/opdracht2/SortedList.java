@@ -1,17 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package opdracht2;
 
 /**
  * Een dynamische gesorteerde lijst op basis van studentnummer.
- * @author Bart
+ * @author Dion
  */
 public class SortedList {
 
-    private Student _start;
-    private Student _end;
+    private Node _start;
+    private Node _end;
     private int _size;
 
     /**
@@ -27,42 +24,42 @@ public class SortedList {
      * Constructor waar studenten aan mee te geven zijn, die direct gepusht worden.
      * @param args De toe te pushen studenten.
      */
-    public SortedList(Student... args){
+    public SortedList(Object... args){
         _start = null;
         _end = null;
         _size = 0;
-        for(Student s : args){
-            push(s);
+        for(Object obj : args){
+            push(obj);
         }
     }
     
     
     /**
      * Een student toevoegen aan de SortedList.
-     * @param s De toe te voegen student
+     * @param obj het object.
      */
-    public void push(Student s) {
+    public void push(Object obj) {
+        Node n = new Node(obj);
         if(_size==0){
-            _start = s;
-            _end= s;
-        } else if(s.getStudentNummer()<_start.getStudentNummer()){
-            _start.setPrev(s);
-            s.setNext(_start);
-            _start = s;
-        } else if(s.getStudentNummer()>_end.getStudentNummer()){
-            s.setPrev(_end);
-            _end.setNext(s);
-            _end = s;
+            _start = n;
+            _end= n;
+        } else if(((Student)n.getData()).getStudentNummer()<((Student)_start.getData()).getStudentNummer()){
+            _start.setPrevious(n);
+            n.setNext(_start);
+            _start = n;
+        } else if(((Student)n.getData()).getStudentNummer()>((Student)_start.getData()).getStudentNummer()){
+            n.setPrevious(_end);
+            _end.setNext(n);
+            _end = n;
         } else {
-            Student tmp = _start;
-            for(int i = tmp.getStudentNummer();s.getStudentNummer()<i;i=tmp.getStudentNummer()){
+            Node tmp = _start;
+            for(int i = ((Student)tmp.getData()).getStudentNummer();((Student)n.getData()).getStudentNummer()<i;i=((Student)tmp.getData()).getStudentNummer()){
                 tmp = tmp.getNext();
             }
-            tmp.getPrev().setNext(s);
-            s.setPrev(tmp.getPrev());
-            tmp.setPrev(s);
-            s.setNext(tmp);
-            
+            tmp.getPrevious().setNext(n);
+            n.setPrevious(tmp.getPrevious());
+            tmp.setPrevious(n);
+            n.setNext(tmp);        
         }
         _size++;
     }
@@ -71,44 +68,45 @@ public class SortedList {
      * Verwijdert student vooraan in de list.
      * @return De verwijderde student.
      */
-    public Student head() {
-        Student tmp = _start;
-        tmp.getNext().setPrev(null);
+    public Object head() {
+        Node tmp = _start;
+        tmp.getNext().setPrevious(null);
         _start = _start.getNext();
         _size--;
-        return tmp;
+        return tmp.getData();
     }
     
     /**
      * Verwijdert de student achteraan in de list.
      * @return De verwijderde student.
      */
-    public Student tail(){
-        Student tmp = _end;
-        tmp.getPrev().setNext(null);
-        _end = _end.getPrev();
+    public Object tail(){
+        Node tmp = _end;
+        tmp.getPrevious().setNext(null);
+        _end = _end.getPrevious();
         _size--;
-        return tmp;
+        return tmp.getData();
     }
     
     /**
      * Zoekt naar de meegegeven student en verwijdert deze indien gevonden.
-     * @param s De te verwijderen student
+     * @param obj het object.
      * @return De verwijderde student, of null indien niet gevonden.
      */
-    public Student pop(Student s){
-        Student tmp;
-        for(tmp = _start; tmp!=s&&tmp!=null;tmp = tmp.getNext()){}
+    public Object pop(Object obj){
+        Node n = new Node(obj);
+        Node tmp;
+        for(tmp = _start; tmp!=null&&!tmp.equals(n);tmp = tmp.getNext()){}
         if(tmp==null){
             System.out.println("Student niet gevonden!");
             return null;
         } else {
-            tmp.getPrev().setNext(tmp.getNext());
-            tmp.getNext().setPrev(tmp.getPrev());
-            tmp.setPrev(null);
+            tmp.getPrevious().setNext(tmp.getNext());
+            tmp.getNext().setPrevious(tmp.getPrevious());
+            tmp.setPrevious(null);
             tmp.setNext(null);
             _size--;
-            return tmp;
+            return tmp.getData();
         }
     }
     
@@ -117,40 +115,40 @@ public class SortedList {
      * @param index De index van te verwijderen student.
      * @return De verwijderde student.
      */
-    public Student pop(int index) {
+    public Object pop(int index) {
         if (_size == 0) {
             System.out.println("Lijst leeg!");
             return null;
         } else if (index == 0 && _size == 1) {
-            Student tmp = _start;
+            Node tmp = _start;
             _start = null;
             _end = null;
             _size--;
-            return tmp;
+            return tmp.getData();
         } else if (index == 0) {
-            Student tmp = _start;
-            tmp.getNext().setPrev(null);
+            Node tmp = _start;
+            tmp.getNext().setPrevious(null);
             _start = _start.getNext();
             _size--;
-            return tmp;
+            return tmp.getData();
         } else if (index == (_size - 1)) {
-            Student tmp = _end;
-            _end.getPrev().setNext(null);
-            _end = _end.getPrev();
+            Node tmp = _end;
+            _end.getPrevious().setNext(null);
+            _end = _end.getPrevious();
             _size--;
             return tmp;
         } else if(index>(_size-1)){
             System.out.println("De opgegeven index is leeg!");
             return null;
         } else {
-            Student tmp = _start;
+            Node tmp = _start;
             for (int i = 0; i < index; i++) {
                 tmp = tmp.getNext();
             }
-            tmp.getPrev().setNext(tmp.getNext());
-            tmp.getNext().setPrev(tmp.getPrev());
+            tmp.getPrevious().setNext(tmp.getNext());
+            tmp.getNext().setPrevious(tmp.getPrevious());
             _size--;
-            return tmp;
+            return tmp.getData();
         }
     }
 
@@ -164,12 +162,12 @@ public class SortedList {
 
     /**
      * Kijkt op basis van studentnummer of student al bestaat.
-     * @param s De te controleren student.
+     * @param obj het te controleren object.
      * @return True als student al bestaat, anders false.
      */
-    public boolean peek(Student s) {
-        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            if (s.getStudentNummer() == tmp.getStudentNummer()) {
+    public boolean peek(Object obj) {
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            if (obj.equals(tmp.getData())) {
                 return true;
             }
         }
@@ -180,8 +178,8 @@ public class SortedList {
      * Print gehele SortedList.
      */
     public void printList() {
-        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            tmp.printStudent();
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            System.out.println(tmp.toString());
         }
     }
 
@@ -189,9 +187,9 @@ public class SortedList {
      * Print alle mannen in de SortedList.
      */
     public void printMen() {
-        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            if (tmp.getGeslacht().equals("m")) {
-                tmp.printStudent();
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            if (((Student)tmp.getData()).getGeslacht().toLowerCase().equals("m")) {
+                System.out.println(tmp.toString());
             }
         }
     }
@@ -200,9 +198,9 @@ public class SortedList {
      * print alle vrouwen in de SortedList.
      */
     public void printWomen() {
-        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            if (tmp.getGeslacht().equals("v")) {
-                tmp.printStudent();
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            if (((Student)tmp.getData()).getGeslacht().toLowerCase().equals("v")) {
+                System.out.println(tmp.toString());
             }
         }
     }
@@ -210,14 +208,14 @@ public class SortedList {
     /**
      * @return geeft de student van vooraan uit de SortedList terug.
      */
-    public Student getStart() {
+    public Node getStart() {
         return _start;
     }
 
     /**
      * @return de student achterin de SortedList.
      */
-    public Student getEnd() {
+    public Node getEnd() {
         return _end;
     }
 }
