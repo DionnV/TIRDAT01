@@ -21,7 +21,7 @@ public class List {
     
     /**
      * Een student toevoegen aan de list op de opgegeven plaats.
-     * @param s De toe te voegen student
+     * @param obj het object.
      * @param index De index waar de student moet komen.
      */
     public void push(Object obj, int index) {
@@ -106,7 +106,7 @@ public class List {
 
     /**
      * Kijkt op basis van studentnummer of student al bestaat.
-     * @param s De te controleren student.
+     * @param obj het object.
      * @return True als student al bestaat, anders false.
      */
     public boolean peek(Object obj) {

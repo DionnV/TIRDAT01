@@ -5,6 +5,11 @@ package opdracht2;
  * @author Dion
  */
 public class App {
+
+    /** De main klass
+     *
+     * @param args command-line args
+     */
     public static void main(String args[])
     {
         Student s1 = new Student(1001,"Student1",11,"m");
