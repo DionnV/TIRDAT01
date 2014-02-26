@@ -20,14 +20,22 @@ public class App {
         Student s7 = new Student(1007,"Student7",17,"m");
         Student s8 = new Student(1008, "Student8",18,"v");
 
+        Node e1 = new Node(s1);
+        Node e2 = new Node(s2);
+        Node e3 = new Node(s3);
+        Node e4 = new Node(s4);
+        Node e5 = new Node(s5);
+        Node e6 = new Node(s6);
+        Node e7 = new Node(s7);
+        Node e8 = new Node(s8);
         //Initialize Stack.
         Stack Stack = new Stack();
 
-        Stack.push(s1);
-        Stack.push(s2);
-        Stack.push(s3);
-        Stack.push(s4);
-        Stack.push(s5);
+        Stack.push(e1);
+        Stack.push(e2);
+        Stack.push(e3);
+        Stack.push(e4);
+        Stack.push(e5);
 
         /*--------------- START OF TESTING METHODS ---------------*/
         System.out.println("Created a Stack. Content:");
@@ -40,25 +48,25 @@ public class App {
         Stack.printWoman();
 
         System.out.println("Peeking student: s1 (should be true)");
-        System.out.println("Result: " + Stack.peek(s1));
+        System.out.println("Result: " + Stack.peek(e1));
 
         System.out.println("Peeking student: s6 (should be false)");
-        System.out.println("Result: " + Stack.peek(s6));
+        System.out.println("Result: " + Stack.peek(e6));
 
         System.out.println("\nLet's pop some students.");
-        Stack.pop().printStudent();
+        ((Student)Stack.pop().getData()).printStudent();
         System.out.println("print:");
         Stack.printStack();
-        Stack.pop().printStudent();
-        Stack.pop().printStudent();
+        ((Student)Stack.pop().getData()).printStudent();
+        ((Student)Stack.pop().getData()).printStudent();
 
         System.out.println("\nThe Stack content is now: ");
         Stack.printStack();
 
         System.out.println("Now add some new students to the Stack.");
-        Stack.push(s6);
-        Stack.push(s7);
-        Stack.push(s8);
+        Stack.push(e6);
+        Stack.push(e7);
+        Stack.push(e8);
 
         System.out.println("The Stack content is now: ");
         Stack.printStack();

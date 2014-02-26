@@ -11,7 +11,7 @@ public class Stack {
     /**
      * De bovenste student, laatst toegevoegde
      */
-    private Student _start;
+    private Node _start;
 
     /** Lege constructor.
      * 
@@ -25,7 +25,7 @@ public class Stack {
      * Voeg student toe bovenop stapel, indien student de eerste is, wordt deze als start opgeslagen.
      * @param s De toe te voegen student.
      */
-    public void push(Student s) {
+    public void push(Node s) {
         if (_start == null) {
             _start = s;
         } else {
@@ -47,11 +47,15 @@ public class Stack {
      * Doorloopt naar de voorlaatste student op de stack, en verwijdert de link naar de volgende.
      * @return De verwijderde student.
      */
-    public Student pop() {
-        Student temp = _start;
-        _start = _start.getNext();
-        _size--;
-        return temp;
+    public Node pop() {
+        if(_size > 0)
+        {
+            Node temp = _start;
+            _start = _start.getNext();
+            _size--;
+            return temp;
+        }
+        return null;
     }
 
     /**
@@ -59,9 +63,9 @@ public class Stack {
      * @param s De te controleren student.
      * @return True als student al bestaat, False als student nog niet gemaakt is.
      */
-    public boolean peek(Student s) {
-        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            if (s.getStudentNummer() == tmp.getStudentNummer()) {
+    public boolean peek(Node s) {
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            if (s.getData().equals(tmp.getData())) {
                 return true;
             }
         }
@@ -73,8 +77,8 @@ public class Stack {
      * Print de stack van de eerste student naar de laatste.
      */
     public void printStack() {
-        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            tmp.printStudent();
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            tmp.toString();
         }
     }
 
@@ -83,10 +87,10 @@ public class Stack {
      */
     public void printMen() {
         String g;
-        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            g = tmp.getGeslacht();
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            g = ((Student)tmp.getData()).getGeslacht();
             if (g.equalsIgnoreCase("m")) {
-                tmp.printStudent();
+                ((Student)tmp.getData()).printStudent();
             }
         }
     }
@@ -96,11 +100,11 @@ public class Stack {
      */
     public void printWoman() {
         String g;
-        for (Student tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            g = tmp.getGeslacht();
+        for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
+            g = ((Student)tmp.getData()).getGeslacht();
             if (g.equalsIgnoreCase("v")) {
-                tmp.printStudent();
+                ((Student)tmp.getData()).printStudent();
             }
         }
-    }
+    }   
 }
