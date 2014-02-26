@@ -2,7 +2,7 @@ package opdracht2;
 
 /**
  *
- * @author BDion
+ * @author Dion
  */
 public class List {
 
