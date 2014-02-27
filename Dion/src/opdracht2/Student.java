@@ -107,4 +107,21 @@ public class Student {
                 + "\nGeslacht     : " + _geslacht
                 + "\n";
     }   
+    
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(obj == null) return false;
+        if(obj == this) return true;
+        if(!(obj instanceof Student)) return false;
+        
+        return  hashCode() == obj.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + _studentNummer;
+        return hash;
+    }
 }
