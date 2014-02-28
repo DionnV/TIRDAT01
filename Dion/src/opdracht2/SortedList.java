@@ -4,8 +4,9 @@ package opdracht2;
 /**
  * Een dynamische gesorteerde lijst op basis van studentnummer.
  * @author Dion
+ * @param <T> het type van het object. 
  */
-public class SortedList {
+public class SortedList<T> {
 
     private Node _start;
     private Node _end;
@@ -24,42 +25,50 @@ public class SortedList {
      * Constructor waar studenten aan mee te geven zijn, die direct gepusht worden.
      * @param args De toe te pushen studenten.
      */
-    public SortedList(Object... args){
+    public SortedList(T... args){
         _start = null;
         _end = null;
         _size = 0;
-        for(Object obj : args){
-            push(obj);
+        for(T t : args){
+            push(t);
         }
     }
     
     
     /**
      * Een student toevoegen aan de SortedList.
-     * @param obj het object.
+     * @param t het object.
      */
-    public void push(Object obj) {
-        Node n = new Node(obj);
-        if(_size==0){
-            _start = n;
-            _end= n;
-        } else if(((Student)n.getData()).getStudentNummer()<((Student)_start.getData()).getStudentNummer()){
-            _start.setPrevious(n);
-            n.setNext(_start);
-            _start = n;
-        } else if(((Student)n.getData()).getStudentNummer()>((Student)_start.getData()).getStudentNummer()){
-            n.setPrevious(_end);
-            _end.setNext(n);
-            _end = n;
-        } else {
-            Node tmp = _start;
-            for(int i = ((Student)tmp.getData()).getStudentNummer();((Student)n.getData()).getStudentNummer()<i;i=((Student)tmp.getData()).getStudentNummer()){
-                tmp = tmp.getNext();
-            }
-            tmp.getPrevious().setNext(n);
-            n.setPrevious(tmp.getPrevious());
-            tmp.setPrevious(n);
-            n.setNext(tmp);        
+    public void push(T t) {
+        Node n = new Node(t);
+        if(!(t instanceof Student))
+        {
+            //Andere objecten worden hier gesorteerd
+            //Niet nodig voor deze opdracht
+        }
+        if(t instanceof Student)
+        {
+            if(_size==0){
+                _start = n;
+                _end= n;
+            } else if(n.getData().hashCode()<_start.getData().hashCode()){
+                _start.setPrevious(n);
+                n.setNext(_start);
+                _start = n;
+            } else if(n.getData().hashCode()>_end.getData().hashCode()){
+                n.setPrevious(_end);
+                _end.setNext(n);
+                _end = n;
+            } else {
+                Node tmp = _start;
+                for(int i = tmp.getData().hashCode();n.getData().hashCode()<i;i=tmp.getData().hashCode()){
+                    tmp = tmp.getNext();
+                }
+                tmp.getPrevious().setNext(n);
+                n.setPrevious(tmp.getPrevious());
+                tmp.setPrevious(n);
+                n.setNext(tmp);        
+            }            
         }
         _size++;
     }
@@ -90,13 +99,13 @@ public class SortedList {
     
     /**
      * Zoekt naar de meegegeven student en verwijdert deze indien gevonden.
-     * @param obj het object.
+     * @param t het object.
      * @return De verwijderde student, of null indien niet gevonden.
      */
-    public Object pop(Object obj){
-        Node n = new Node(obj);
+    public Object pop(T t){
+        Node n = new Node(t);
         Node tmp;
-        for(tmp = _start; tmp!=null&&!tmp.equals(n);tmp = tmp.getNext()){}
+        for(tmp = _start; tmp!=null&&!(tmp.getData()).equals(n.getData());tmp = tmp.getNext()){}
         if(tmp==null){
             System.out.println("Student niet gevonden!");
             return null;
@@ -162,12 +171,12 @@ public class SortedList {
 
     /**
      * Kijkt op basis van studentnummer of student al bestaat.
-     * @param obj het te controleren object.
+     * @param t het te controleren object.
      * @return True als student al bestaat, anders false.
      */
-    public boolean peek(Object obj) {
+    public boolean peek(T t) {
         for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            if (obj.equals(tmp.getData())) {
+            if (t.equals(tmp.getData())) {
                 return true;
             }
         }

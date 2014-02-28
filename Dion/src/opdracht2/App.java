@@ -58,7 +58,7 @@ public class App {
         System.out.println("Nieuwe grootte: " + b.size());
         
 
-        SortedList c = new SortedList(s1, s2, s3, s4, s5, s6, s7);
+        SortedList<Student> c = new SortedList<Student>(s1, s2, s3, s4, s5, s6, s7);
         System.out.println("7 studenten gepusht, actuele SortedList:");
         c.printList();
         System.out.println("Actuele grootte:");
@@ -66,7 +66,7 @@ public class App {
         System.out.println("Verwijdert studenten met de hoogste en de laagste studentnummers:");
         ((Student)c.tail()).printStudent();
         ((Student)c.head()).printStudent();
-        System.out.println("Controleert Hans' aanwezigheid en probeert te verwijderen uit de list:");
+        System.out.println("Controleert s3 zijn aanwezigheid en probeert te verwijderen uit de list:");
         System.out.println(c.peek(s3));
         ((Student)c.pop(s3)).printStudent();
         System.out.println("Nieuwe SortedList:");
