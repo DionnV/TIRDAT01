@@ -108,7 +108,7 @@ public class Queue {
      */
     public void printWomen(){
         for (Node tmp = _start; tmp != null; tmp = tmp.getNext()) {
-            if (((Student)tmp.getData()).getGeslacht().toLowerCase().equals("m")) {
+            if (((Student)tmp.getData()).getGeslacht().toLowerCase().equals("v")) {
                 System.out.println(tmp.toString());
             }
         }

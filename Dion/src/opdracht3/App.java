@@ -79,6 +79,8 @@ public class App {
             
             admin.printNietBehaaldeVakken(s1);
             
+            admin.printBehaaldeVakken(s5);
+            
             System.out.println("Studenten die " + v1.getModulecode() + " hebben gehaald");
             admin.printStudentenBehaald(v1);
             
