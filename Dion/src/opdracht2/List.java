@@ -14,9 +14,6 @@ public class List {
      * Constructor
      */
     public List(){
-        _size = 0;
-        _start = null;
-        _end = null;
     }
     
     /**

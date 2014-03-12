@@ -16,9 +16,6 @@ public class SortedList<T> {
      * Lege constructor.
      */
     public SortedList(){
-        _start = null;
-        _end = null;
-        _size = 0;
     }
     
     /**
@@ -39,7 +36,7 @@ public class SortedList<T> {
      * Een student toevoegen aan de SortedList.
      * @param t het object.
      */
-    public void push(T t) {
+    public boolean push(T t) {
         Node n = new Node(t);
         if(!(t instanceof Student))
         {
@@ -71,6 +68,7 @@ public class SortedList<T> {
             }            
         }
         _size++;
+        return true;       
     }
 
     /**
@@ -78,11 +76,15 @@ public class SortedList<T> {
      * @return De verwijderde student.
      */
     public Object head() {
-        Node tmp = _start;
-        tmp.getNext().setPrevious(null);
-        _start = _start.getNext();
-        _size--;
-        return tmp.getData();
+        if(_start != null)
+        {
+            Node tmp = _start;
+            tmp.getNext().setPrevious(null);
+            _start = _start.getNext();
+            _size--;
+            return tmp.getData();
+        }
+        return null;
     }
     
     /**
@@ -90,11 +92,15 @@ public class SortedList<T> {
      * @return De verwijderde student.
      */
     public Object tail(){
-        Node tmp = _end;
-        tmp.getPrevious().setNext(null);
-        _end = _end.getPrevious();
-        _size--;
-        return tmp.getData();
+        if(_end != null)
+        {
+            Node tmp = _end;
+            tmp.getPrevious().setNext(null);
+            _end = _end.getPrevious();
+            _size--;
+            return tmp.getData();
+        }
+        return null;
     }
     
     /**

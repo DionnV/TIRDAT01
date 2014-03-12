@@ -114,16 +114,14 @@ public class Student {
      */
     public LinkedList<Vak> getVakken(int jaar)
     {
-        LinkedList<Vak> list = new LinkedList<Vak>();
-        Object[] vakken = _vakken.values().toArray();       
-        for (Object vak : vakken) {
-            if (((Vak) vak).getCijfer() > 6) {
-                if ((((Vak) vak).getJaar() == jaar) || jaar == 0) {
+        LinkedList<Vak> list = new LinkedList<Vak>();      
+        for (Vak vak : _vakken.values()) {
+            if (vak.getCijfer() >= 6) {
+                if (vak.getJaar() == jaar || jaar == 0) {
                     list.add((Vak) vak);
                 }
             }
-        }
-        
+        }        
         return list;
     }
     

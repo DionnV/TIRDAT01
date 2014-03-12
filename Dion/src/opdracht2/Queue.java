@@ -14,9 +14,6 @@ public class Queue {
      * Lege constructor.
      */
     public Queue(){
-    _size = 0;
-    _start = null;
-    _end = null;
     }
     
     /** Constructor
@@ -63,12 +60,16 @@ public class Queue {
      * @return De verwijderde student.
      */
     public Object pop(){
-        Node tmp = _start;
-        _start.getNext().setPrevious(null);
-        _start=_start.getNext();
-        tmp.setNext(null);
-        _size--;
-        return tmp.getData();
+        if(_start != null)
+        {
+            Node tmp = _start;
+            _start.getNext().setPrevious(null);
+            _start=_start.getNext();
+            tmp.setNext(null);
+            _size--;
+            return tmp.getData();
+        }
+        return null;
     }
     
     /**
